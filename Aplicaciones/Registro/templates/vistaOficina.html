@@ -1,0 +1,35 @@
+{% extends "./base.html" %}
+
+{% block title %} RFID {% endblock %}
+
+{% block body %}
+
+    <div class="container py-4">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <h2 class="text-center">OFICINAS</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID Oficina</th>
+                                <th>Oficina</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for o in oficinasListadas %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{o.idoficina}}</td>
+                                <td>{{o.oficina}}</td>
+                            </tr>
+                            {% endfor %}    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

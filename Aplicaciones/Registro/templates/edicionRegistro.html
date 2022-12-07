@@ -1,0 +1,60 @@
+{% extends "./base.html" %}
+
+{% block title %} RFID {% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edicion de Registro</h2>
+        <div class="card py-3">
+            <div class="card-body">
+                <form id="formularioRegistro" action="/editarRegistro/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id='Rfid' name="Rfid" value="{{registro.codigoRFID}}" class="form-control mb-2" placeholder="RFID" readonly>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id='Nombre' name="Nombre" value="{{registro.nombre}}" class="form-control mb-2" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id='Apellido' name="Apellido" value="{{registro.apellido}}" class="form-control mb-2" placeholder="Apellido" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id='Cc' name="Cc" value="{{registro.cc}}" class="form-control mb-2" placeholder="Cedula" maxlength="11" required>
+                    </div>
+                    <div>
+                        <select id='idOficina' name="idOficina" placeholder="Oficina" class="form-control" required>
+                            <option value="1">Despacho</option>
+                            <option value="2">Comunicaciones</option>
+                            {% comment %} <option value="3">Control Disciplinario Interno</option> {% endcomment %}
+                            {% comment %} <option value="4">Desarrollo Económico</option> {% endcomment %}
+                            {% comment %} <option value="5">Educación</option> {% endcomment %}
+                            <option value="6">Evaluación y Control</option>
+                            <option value="7">Familia</option>
+                            <option value="8">General</option>
+                            <option value="9">Gobierno</option>
+                            <option value="10">Hacienda</option>
+                            <option value="11">Infraestructura</option>
+                            <option value="12">Jurídica</option>
+                            {% comment %} <option value="13">Medio Ambiente</option> {% endcomment %}
+                            {% comment %} <option value="14">Movilidad</option> {% endcomment %}
+                            <option value="15">Participación Ciudadana</option>
+                            <option value="16">Planeación</option>
+                            <option value="17">Privada</option>
+                            <option value="18">Salud y Protección Social</option>
+                            {% comment %} <option value="19">Seguridad</option> {% endcomment %}
+                            <option value="20">Servicios Administrativos</option>
+                            <option value="21">TIC</option>
+                            <option value="22">Vivienda y Hábitat</option>
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2 mt-2">
+                        <button type="submit" class="btn btn-success text-white btn-block">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "./base.html" %}
+
+{% block title %} Ingresos {% endblock %}
+
+{% block body %}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center">Ingresos</h2>
+                <hr>
+                <form id="consultarDatos" action="/consultarDatos/" method="POST"> {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id='Rfid' name="Rfid" class="form-control mb-2" placeholder="RFID" autofocus required>
+                    </div>
+                    <div class="d-grid gap-2 mt-2">
+                        <button type="submit" class="btn btn-success text-white btn-block">Consultar</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h2 class="text-center">REGISTROS DE INGRESO</h2>
+        <div class="table-responsive py-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>RFID</th>
+                        <th>Fecha y Hora</th>
+                        <th>id Oficina</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <td>{{i.codigoRFID}}</td>
+                        <td>{{i.data_time}}</td>
+                        <td>{{i.idoficina}}</td>
+                        <td>{{i.estado}}</td>
+                    </tr>
+                    {% endfor %}    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

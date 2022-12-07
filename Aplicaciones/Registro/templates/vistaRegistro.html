@@ -1,0 +1,106 @@
+{% extends "./base.html" %}
+
+{% block title %} RFID {% endblock %}
+
+{% block body %}
+    <div class="row d-flex justify-content-center">
+        {% if user.is_authenticated %}
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <h2 class="text-center">Registro</h2>
+            <div class="card py-3">
+                <div class="card-body">
+                    <form id="formularioRegistro" action="/registrarDatos/" method="POST">{% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" id='Rfid' name="Rfid" class="form-control mb-2" placeholder="RFID" autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id='Nombre' name="Nombre" class="form-control mb-2" placeholder="Nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id='Apellido' name="Apellido" class="form-control mb-2" placeholder="Apellido" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id='Cc' name="Cc" class="form-control mb-2" placeholder="Cedula" maxlength="11" required>
+                        </div>
+                        <div>
+                            <select id='idOficina'  name="idOficina" class="form-control mb-2" multiple required>
+                                <option value=1>Despacho</option>
+                                <option value=2>Comunicaciones</option>
+                                {% comment %} <option value=3>Control Disciplinario Interno</option> {% endcomment %}
+                                {% comment %} <option value=4>Desarrollo Económico</option> {% endcomment %}
+                                {% comment %} <option value=5>Educación</option> {% endcomment %}
+                                <option value=6 >Evaluación y Control</option>
+                                <option value=7>Familia</option>
+                                <option value=8>General</option>
+                                <option value=9>Gobierno</option>
+                                <option value=10>Hacienda</option>
+                                <option value=11>Infraestructura</option>
+                                <option value=12>Jurídica</option>
+                                {% comment %} <option value="13>Medio Ambiente</option> {% endcomment %}
+                                {% comment %} <option value="14>Movilidad</option> {% endcomment %}
+                                <option value=15>Participación Ciudadana</option>
+                                <option value=16>Planeación</option>
+                                <option value=17>Privada</option>
+                                <option value=18>Salud y Protección Social</option>
+                                {% comment %} <option value="19>Seguridad</option> {% endcomment %}
+                                <option value=20>Servicios Administrativos</option>
+                                <option value=21>TIC</option>
+                                <option value=22>Vivienda y Hábitat</option>
+                            </select>
+                        </div>
+                    
+                        <div class="d-grid gap-2 mt-2">
+                            <button type="submit" class="btn btn-success text-white btn-block">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-md-8">
+            <h2 class="text-center">REGISTROS</h2>
+            <div class="table-responsive py-3">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>RFID</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>C.C</th>
+                            <th>id Oficina</th>
+                            <th>Oficina</th>
+                            {% if user.is_authenticated %}
+                            <th colspan="2">Opciones</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in registros %}
+                        <tr>
+                            <td>{{r.codigoRFID}}</td>
+                            <td>{{r.nombre}}</td>
+                            <td>{{r.apellido}}</td>
+                            <td>{{r.cc}}</td>
+                            <td>{{r.idoficina}}</td>
+                            <td>{{r.oficina}}</td>
+                            {% if user.is_authenticated %}
+                            <td><a href="edicionRegistro/{{r.codigoRFID}}" class="btn btn-info btn-sm">Editar</a></td>
+                            <td><a href="eliminacionRegistro/{{r.codigoRFID}}" class="btn btn-danger btn-sm btnEliminar">Eliminar</a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% comment %} {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success mt-4">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %} {% endcomment %}
+    </div>
+
+{% endblock %}
